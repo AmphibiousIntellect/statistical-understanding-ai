@@ -1,0 +1,10 @@
+Package: suaiDataManager
+Type: Package
+Title: SUAI Statistical Data Manager Reference Implementation
+Version: 0.1.0
+Authors@R: person("Amphibious", "Intellect", role = c("aut", "cre"), email = "amphibious.intellect@gmail.com")
+Description: Conservative starter checks for statistically consequential data-quality issues.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
