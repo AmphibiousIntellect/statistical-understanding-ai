@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/finding.schema.json",
+  "title": "Statistical Data Manager finding",
+  "type": "object",
+  "required": ["code", "severity", "status", "message", "evidence", "proposed_action"],
+  "properties": {
+    "code": {"type": "string"},
+    "severity": {"enum": ["info", "warning", "error"]},
+    "status": {"enum": ["observed", "needs_context", "proposed", "approved", "applied", "rejected"]},
+    "message": {"type": "string"},
+    "evidence": {"type": "object"},
+    "statistical_implication": {"type": ["string", "null"]},
+    "proposed_action": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}
