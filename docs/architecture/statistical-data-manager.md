@@ -18,3 +18,11 @@ Consequential transformations require explicit approval and must produce an
 audit event. Cross-language parity means equivalent decisions and outputs where
 language differences do not make equivalence impossible; it does not require
 identical internal code.
+
+The full workflow is:
+
+**Inspect → Profile → Validate → Diagnose → Propose → Approve → Transform → Verify → Document**
+
+See the [shared protocol](../../skills/statistical-data-manager/spec/protocol.md)
+for invariants, status transitions, output-package requirements, and v0.1
+acceptance criteria.

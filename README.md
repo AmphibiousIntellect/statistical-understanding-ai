@@ -23,7 +23,7 @@ The framework is described in [the framework overview](docs/framework/README.md)
 
 The first reference skill applies statistical reasoning before changing data:
 
-**Inspect → Profile → Validate → Diagnose → Propose → Transform → Verify → Document**
+**Inspect → Profile → Validate → Diagnose → Propose → Approve → Transform → Verify → Document**
 
 The specification is language-agnostic. Starter implementations are provided
 for both [Python](skills/statistical-data-manager/python/README.md) and
@@ -31,6 +31,9 @@ for both [Python](skills/statistical-data-manager/python/README.md) and
 behavioral expectations. The central safety principle is:
 
 > Never clean data without preserving the reasoning behind the cleaning decision.
+
+The shared behavioral contract is defined in the
+[v0.1 protocol](skills/statistical-data-manager/spec/protocol.md).
 
 This initial version profiles data and identifies issues. It does not silently
 apply consequential transformations.
