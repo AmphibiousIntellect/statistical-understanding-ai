@@ -1,28 +1,69 @@
 # Statistical Data Manager architecture
 
-The skill has one conceptual specification and two execution engines.
+The [R package strategy](r-package-strategy.md) maps package capabilities and
+selection criteria while keeping the shared reasoning protocol package-agnostic.
+
+The Statistical Data Manager is one coordinated statistical reasoning system
+with two complementary execution engines.
 
 ```text
-Shared protocol and schemas
-          |
-   statistical reasoning
-      /           \
- R reference   Python reference
-      \           /
- shared fixtures and behavioral tests
+            Coordinator
+                |
+   shared reasoning, schemas, and audit layer
+          /                         \
+ R statistical engine       Python data/AI engine
+          \                         /
+        joint review and synthesis
 ```
 
-Both engines produce a profile and a list of findings. A finding distinguishes
-the observed evidence from its statistical implication and any proposed action.
-Consequential transformations require explicit approval and must produce an
-audit event. Cross-language parity means equivalent decisions and outputs where
-language differences do not make equivalence impossible; it does not require
-identical internal code.
+The coordinator identifies the task, available context, statistical risk, and
+required assurance. It assigns work to one or both engines, reconciles their
+findings, and produces one traceable outcome.
 
-The full workflow is:
+## Complementary responsibilities
 
-**Inspect → Profile → Validate → Diagnose → Propose → Approve → Transform → Verify → Document**
+| R statistical engine | Python data/AI engine |
+|---|---|
+| Classical statistical methods | Data ingestion and engineering |
+| Survival and longitudinal analysis | Large-scale processing |
+| Mixed models and survey methods | Machine-learning and AI integration |
+| Statistical diagnostics | APIs and workflow orchestration |
+| Research-oriented reporting | Production schema validation |
+| Specialized statistical packages | Unstructured and multimodal data |
 
-See the [shared protocol](../../skills/statistical-data-manager/spec/protocol.md)
-for invariants, status transitions, output-package requirements, and v0.1
-acceptance criteria.
+These are routing preferences, not hard boundaries. The coordinator may select
+either engine when its implementation, data support, or statistical method is
+better suited to the task.
+
+## Operating modes
+
+### Collaborative mode
+
+The default. R and Python perform different parts of one workflow and exchange
+profiles, findings, proposals, and audit events through shared schemas.
+
+### Native mode
+
+One engine completes the task when collaboration would add complexity without
+meaningful statistical or operational value.
+
+### Independent validation mode
+
+Both engines evaluate selected high-risk facts or decisions independently. A
+disagreement becomes a finding requiring reconciliation or human review; it is
+not silently averaged away.
+
+## What must be shared
+
+The engines must agree on common data facts, identifiers, finding semantics,
+approval states, provenance, and audit structure. They must also follow the same
+safety invariants: detection is not permission to mutate, ambiguity must remain
+visible, and consequential changes require approval and verification.
+
+They do not need identical algorithms, package choices, advanced capabilities,
+or report wording. Cross-language equivalence is a targeted validation method,
+not the product architecture.
+
+A finding distinguishes observed evidence from its statistical implication and
+any proposed action. Consequential transformations require explicit approval
+and must produce an audit event regardless of which engine performs them.
