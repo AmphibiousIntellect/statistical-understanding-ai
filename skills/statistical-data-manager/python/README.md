@@ -3,8 +3,9 @@
 Behavior is evaluated using the shared fixtures and
 [`evaluation/rubric.md`](../evaluation/rubric.md).
 
-Install from this directory with `python -m pip install -e .`, then run
-`python -m unittest discover -s tests`. The starter API provides `profile()` and `inspect()` for pandas data
+Install from this directory with `python -m pip install -e ".[test]"`, then run
+`python -m unittest discover -s tests`. The `test` extra adds `jsonschema` and
+`rfc3339-validator` for the draft v0.2 contract tests. The starter API provides `profile()` and `inspect()` for pandas data
 frames. It reports ambiguous duplicate rows but never deletes them.
 
 Within the coordinated system, Python is expected to lead data ingestion,

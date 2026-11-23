@@ -9,3 +9,6 @@ description = "Python reference implementation of the SUAI Statistical Data Mana
 requires-python = ">=3.10"
 license = {text = "MIT"}
 dependencies = ["pandas>=2.0"]
+
+[project.optional-dependencies]
+test = ["jsonschema>=4.18", "rfc3339-validator"]
