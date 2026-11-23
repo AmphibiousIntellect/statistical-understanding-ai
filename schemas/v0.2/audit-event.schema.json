@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/audit-event.schema.json",
+  "title": "SUAI v0.2 audit event (DRAFT)",
+  "description": "One state transition or run-level event. The ordered stream of audit events is authoritative for current state. Legal (previous_state, new_state) pairs are defined in state-transitions.json and checked by replay, not by this schema.",
+  "type": "object",
+  "required": [
+    "schema_version", "audit_event_id", "run_id", "sequence", "occurred_at", "actor", "event_type",
+    "state_machine", "previous_state", "new_state", "engine", "input_artifacts", "output_artifacts"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "audit_event_id": {"$ref": "common.schema.json#/$defs/audit_event_id"},
+    "run_id": {"$ref": "common.schema.json#/$defs/run_id"},
+    "sequence": {"type": "integer", "minimum": 1},
+    "occurred_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "actor": {"$ref": "common.schema.json#/$defs/actor"},
+    "event_type": {
+      "enum": [
+        "run_started", "input_registered", "engine_result_recorded", "finding_recorded",
+        "finding_transitioned", "disagreement_reconciled", "action_proposed", "action_superseded",
+        "approval_recorded", "transformation_applied", "verification_completed",
+        "release_materiality_declared", "run_completed"
+      ]
+    },
+    "state_machine": {"enum": [null, "finding", "action"]},
+    "previous_state": {"type": ["string", "null"]},
+    "new_state": {"type": ["string", "null"]},
+    "finding_id": {"$ref": "common.schema.json#/$defs/finding_id"},
+    "action_id": {"$ref": "common.schema.json#/$defs/action_id"},
+    "approval_id": {"$ref": "common.schema.json#/$defs/approval_id"},
+    "related_action_id": {"$ref": "common.schema.json#/$defs/action_id"},
+    "engine": {"$ref": "common.schema.json#/$defs/nullable_engine_ref"},
+    "input_artifacts": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/artifact_ref"}},
+    "output_artifacts": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/artifact_ref"}},
+    "rationale": {"type": ["string", "null"]},
+    "resolution_basis": {"$ref": "common.schema.json#/$defs/resolution_basis"}
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {"event_type": {"enum": ["finding_recorded", "finding_transitioned", "disagreement_reconciled"]}},
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["finding_id"],
+        "properties": {
+          "state_machine": {"const": "finding"},
+          "previous_state": {"enum": [null, "observed", "needs_context", "proposed", "resolved", "remediated"]},
+          "new_state": {"enum": ["observed", "needs_context", "proposed", "resolved", "remediated"]}
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": ["action_proposed", "action_superseded", "approval_recorded", "transformation_applied", "verification_completed"]
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "required": ["action_id", "finding_id"],
+        "properties": {
+          "state_machine": {"const": "action"},
+          "previous_state": {
+            "enum": [null, "proposed", "approved", "rejected", "deferred", "applied", "verified", "verification_failed", "superseded"]
+          },
+          "new_state": {
+            "enum": ["proposed", "approved", "rejected", "deferred", "applied", "verified", "verification_failed", "superseded"]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "enum": ["run_started", "input_registered", "engine_result_recorded", "release_materiality_declared", "run_completed"]
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "state_machine": {"const": null},
+          "previous_state": {"const": null},
+          "new_state": {"const": null}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "approval_recorded"}}, "required": ["event_type"]},
+      "then": {"required": ["approval_id"]}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "action_superseded"}}, "required": ["event_type"]},
+      "then": {"required": ["related_action_id", "rationale"], "properties": {"rationale": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "disagreement_reconciled"}}, "required": ["event_type"]},
+      "then": {"required": ["rationale"], "properties": {"rationale": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"event_type": {"const": "release_materiality_declared"}}, "required": ["event_type"]},
+      "then": {"required": ["rationale"], "properties": {"rationale": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {
+        "properties": {"event_type": {"enum": ["transformation_applied", "verification_completed", "engine_result_recorded"]}},
+        "required": ["event_type"]
+      },
+      "then": {"properties": {"engine": {"type": "object"}}}
+    },
+    {
+      "if": {"properties": {"actor": {"properties": {"type": {"const": "engine"}}, "required": ["type"]}}, "required": ["actor"]},
+      "then": {"properties": {"engine": {"type": "object"}}}
+    },
+    {
+      "if": {"properties": {"new_state": {"const": "resolved"}}, "required": ["new_state"]},
+      "then": {"required": ["resolution_basis", "rationale"], "properties": {"rationale": {"type": "string", "minLength": 1}}}
+    }
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,52 @@
+{
+  "schema_version": "0.2",
+  "description": "Machine-readable transition table for the draft v0.2 state model. Mirrored by docs/decisions/0002-routing-provenance-and-state-model.md; tests assert that the two and the schema enums agree.",
+  "event_types": [
+    "run_started", "input_registered", "engine_result_recorded", "finding_recorded",
+    "finding_transitioned", "disagreement_reconciled", "action_proposed", "action_superseded",
+    "approval_recorded", "transformation_applied", "verification_completed",
+    "release_materiality_declared", "run_completed"
+  ],
+  "approval_decisions": ["approved", "rejected", "deferred"],
+  "approval_chain": {
+    "description": "Allowed decision of a superseding approval, keyed by the decision it supersedes. A first approval supersedes nothing.",
+    "deferred": ["approved", "rejected", "deferred"],
+    "approved": ["rejected"],
+    "rejected": []
+  },
+  "finding": {
+    "states": ["observed", "needs_context", "proposed", "resolved", "remediated"],
+    "transitions": [
+      {"id": "F1", "from": null, "to": "observed", "event_types": ["finding_recorded"]},
+      {"id": "F2", "from": null, "to": "needs_context", "event_types": ["finding_recorded"]},
+      {"id": "F3", "from": "observed", "to": "needs_context", "event_types": ["finding_transitioned"]},
+      {"id": "F4", "from": "observed", "to": "proposed", "event_types": ["finding_transitioned"]},
+      {"id": "F5", "from": "needs_context", "to": "proposed", "event_types": ["finding_transitioned"]},
+      {"id": "F6", "from": "proposed", "to": "needs_context", "event_types": ["finding_transitioned"]},
+      {"id": "F7", "from": "proposed", "to": "observed", "event_types": ["finding_transitioned"]},
+      {"id": "F8", "from": "proposed", "to": "resolved", "event_types": ["finding_transitioned"]},
+      {"id": "F9", "from": "needs_context", "to": "resolved", "event_types": ["finding_transitioned", "disagreement_reconciled"]},
+      {"id": "F10", "from": "proposed", "to": "remediated", "event_types": ["finding_transitioned"]}
+    ]
+  },
+  "action": {
+    "states": ["proposed", "approved", "rejected", "deferred", "applied", "verified", "verification_failed", "superseded"],
+    "terminal_states": ["rejected", "verified", "verification_failed", "superseded"],
+    "transitions": [
+      {"id": "A1", "from": null, "to": "proposed", "event_types": ["action_proposed"]},
+      {"id": "A2", "from": "proposed", "to": "approved", "event_types": ["approval_recorded"]},
+      {"id": "A3", "from": "proposed", "to": "rejected", "event_types": ["approval_recorded"]},
+      {"id": "A4", "from": "proposed", "to": "deferred", "event_types": ["approval_recorded"]},
+      {"id": "A5", "from": "deferred", "to": "approved", "event_types": ["approval_recorded"]},
+      {"id": "A6", "from": "deferred", "to": "rejected", "event_types": ["approval_recorded"]},
+      {"id": "A7", "from": "deferred", "to": "deferred", "event_types": ["approval_recorded"]},
+      {"id": "A8", "from": "approved", "to": "rejected", "event_types": ["approval_recorded"]},
+      {"id": "A9", "from": "proposed", "to": "superseded", "event_types": ["action_superseded"]},
+      {"id": "A10", "from": "deferred", "to": "superseded", "event_types": ["action_superseded"]},
+      {"id": "A11", "from": "approved", "to": "superseded", "event_types": ["action_superseded"]},
+      {"id": "A12", "from": "approved", "to": "applied", "event_types": ["transformation_applied"]},
+      {"id": "A13", "from": "applied", "to": "verified", "event_types": ["verification_completed"]},
+      {"id": "A14", "from": "applied", "to": "verification_failed", "event_types": ["verification_completed"]}
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "0.2",
+  "engine_result_id": "res_ind_b",
+  "run_id": "run_demo01",
+  "coordination_mode": "independent_validation",
+  "engines": [
+    {
+      "name": "python",
+      "version": "3.12.13",
+      "capability": "profile",
+      "implementation_revision": "example-rev-0001",
+      "configuration": {
+        "dtype_backend": "default"
+      }
+    },
+    {
+      "name": "r",
+      "version": "4.6.0",
+      "capability": "profile",
+      "implementation_revision": "example-rev-0001",
+      "configuration": {
+        "na_strings": [
+          ""
+        ]
+      }
+    }
+  ],
+  "produced_by": {
+    "name": "r",
+    "capability": "profile"
+  },
+  "status": "completed",
+  "started_at": "2026-11-23T12:00:00Z",
+  "completed_at": "2026-11-23T12:00:00Z",
+  "inputs": [
+    {
+      "path": "examples/whitespace_padded.csv",
+      "sha256": "3f48d11458e37cd22c904295e44cb2e10fec3d19095046a0c9197efb3c5286c7",
+      "role": "input"
+    }
+  ],
+  "profile": {
+    "row_count": 5
+  },
+  "findings": [],
+  "errors": []
+}

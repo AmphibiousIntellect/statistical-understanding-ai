@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/approval.schema.json",
+  "title": "SUAI v0.2 approval (DRAFT)",
+  "description": "An immutable decision concerning one exact action. Approvals reference action_id (never finding_id alone). Later decisions on the same action supersede earlier ones through supersedes_approval_id; the action digest must be unchanged.",
+  "type": "object",
+  "required": [
+    "schema_version", "approval_id", "run_id", "action_id", "action_digest", "decision",
+    "supersedes_approval_id", "decided_by", "decided_at", "rationale"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "approval_id": {"$ref": "common.schema.json#/$defs/approval_id"},
+    "run_id": {"$ref": "common.schema.json#/$defs/run_id"},
+    "action_id": {"$ref": "common.schema.json#/$defs/action_id"},
+    "action_digest": {"$ref": "common.schema.json#/$defs/sha256"},
+    "decision": {"$ref": "common.schema.json#/$defs/approval_decision"},
+    "supersedes_approval_id": {"$ref": "common.schema.json#/$defs/nullable_approval_id"},
+    "decided_by": {"type": "string", "minLength": 1},
+    "decided_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "rationale": {"type": "string", "minLength": 1},
+    "context_required": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "conditions": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"decision": {"const": "deferred"}}, "required": ["decision"]},
+      "then": {"required": ["context_required"], "properties": {"context_required": {"minItems": 1}}}
+    }
+  ],
+  "additionalProperties": false
+}

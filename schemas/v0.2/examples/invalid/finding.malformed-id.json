@@ -1,0 +1,24 @@
+{
+  "schema_version": "0.2",
+  "finding_id": "finding-1",
+  "run_id": "run_demo01",
+  "code": "whitespace_padding",
+  "severity": "warning",
+  "status": "observed",
+  "message": "2 cells in column 'visit' have leading or trailing whitespace.",
+  "evidence": {
+    "column": "visit",
+    "padded_cell_count": 2
+  },
+  "statistical_implication": "Padded labels can split one category into several groups.",
+  "produced_by": {
+    "name": "python",
+    "capability": "profile"
+  },
+  "engine_result_id": "res_py01",
+  "release_blocking": true,
+  "affected_release_scope": [
+    "scp_main"
+  ],
+  "materiality_rationale": null
+}

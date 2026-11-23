@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/finding.schema.json",
+  "title": "SUAI v0.2 finding (DRAFT)",
+  "description": "Observed evidence. `status` is the status at emission and is non-authoritative; the audit-event stream is authoritative for current state.",
+  "type": "object",
+  "required": [
+    "schema_version", "finding_id", "run_id", "code", "severity", "status", "message", "evidence",
+    "produced_by", "engine_result_id", "release_blocking", "affected_release_scope", "materiality_rationale"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "finding_id": {"$ref": "common.schema.json#/$defs/finding_id"},
+    "run_id": {"$ref": "common.schema.json#/$defs/run_id"},
+    "code": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+    "severity": {"enum": ["info", "warning", "error"]},
+    "status": {"$ref": "common.schema.json#/$defs/finding_state"},
+    "message": {"type": "string", "minLength": 1},
+    "evidence": {"type": "object"},
+    "statistical_implication": {"type": ["string", "null"]},
+    "context_required": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "produced_by": {"$ref": "common.schema.json#/$defs/engine_ref"},
+    "engine_result_id": {"$ref": "common.schema.json#/$defs/engine_result_id"},
+    "release_blocking": {"type": "boolean"},
+    "affected_release_scope": {"$ref": "common.schema.json#/$defs/release_scope_ids"},
+    "materiality_rationale": {"type": ["string", "null"]}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "needs_context"}}, "required": ["status"]},
+      "then": {"required": ["context_required"], "properties": {"context_required": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"release_blocking": {"const": false}}, "required": ["release_blocking"]},
+      "then": {"properties": {"materiality_rationale": {"type": "string", "minLength": 1}}}
+    },
+    {
+      "if": {"properties": {"release_blocking": {"const": true}}, "required": ["release_blocking"]},
+      "then": {"properties": {"affected_release_scope": {"minItems": 1}}}
+    },
+    {
+      "if": {"properties": {"code": {"const": "engine_disagreement"}}, "required": ["code"]},
+      "then": {
+        "properties": {
+          "status": {"const": "needs_context"},
+          "evidence": {
+            "required": ["fact", "tolerance", "observations"],
+            "properties": {
+              "fact": {"type": "string", "minLength": 1},
+              "tolerance": {"type": ["number", "null"]},
+              "observations": {
+                "type": "array",
+                "minItems": 2,
+                "items": {
+                  "type": "object",
+                  "required": ["engine", "engine_result_id", "value"],
+                  "properties": {
+                    "engine": {"$ref": "common.schema.json#/$defs/engine_ref"},
+                    "engine_result_id": {"$ref": "common.schema.json#/$defs/engine_result_id"},
+                    "value": {}
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

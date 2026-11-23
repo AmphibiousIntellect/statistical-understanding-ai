@@ -1,0 +1,45 @@
+{
+  "schema_version": "0.2",
+  "finding_id": "fnd_disagree01",
+  "run_id": "run_demo01",
+  "code": "engine_disagreement",
+  "severity": "error",
+  "status": "needs_context",
+  "message": "Engines disagree on row_count.",
+  "evidence": {
+    "fact": "row_count",
+    "tolerance": 0,
+    "observations": [
+      {
+        "engine": {
+          "name": "python",
+          "capability": "profile"
+        },
+        "engine_result_id": "res_ind_a",
+        "value": 4
+      },
+      {
+        "engine": {
+          "name": "r",
+          "capability": "profile"
+        },
+        "engine_result_id": "res_ind_b",
+        "value": 5
+      }
+    ]
+  },
+  "statistical_implication": "The analysis population depends on which value is correct.",
+  "context_required": [
+    "Reconcile the disputed fact and document the basis."
+  ],
+  "produced_by": {
+    "name": "coordinator",
+    "capability": "reconciliation"
+  },
+  "engine_result_id": "res_ind_a",
+  "release_blocking": true,
+  "affected_release_scope": [
+    "scp_main"
+  ],
+  "materiality_rationale": null
+}

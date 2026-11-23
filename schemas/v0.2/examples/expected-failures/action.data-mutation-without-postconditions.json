@@ -1,0 +1,9 @@
+{
+  "schema": "action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "minProperties",
+      "json_path": "$.postconditions"
+    }
+  ]
+}

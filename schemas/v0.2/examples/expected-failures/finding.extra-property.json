@@ -1,0 +1,10 @@
+{
+  "schema": "finding.schema.json",
+  "expected_errors": [
+    {
+      "validator": "additionalProperties",
+      "json_path": "$",
+      "message_contains": "proposed_action"
+    }
+  ]
+}

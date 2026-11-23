@@ -1,0 +1,19 @@
+{
+  "schema_version": "0.2",
+  "audit_event_id": "evt_004",
+  "run_id": "run_demo01",
+  "sequence": 4,
+  "occurred_at": "2026-11-23T12:04:00Z",
+  "actor": {
+    "type": "engine",
+    "id": "python"
+  },
+  "event_type": "finding_recorded",
+  "state_machine": "finding",
+  "previous_state": null,
+  "new_state": "needs_context",
+  "engine": null,
+  "input_artifacts": [],
+  "output_artifacts": [],
+  "finding_id": "fnd_dup01"
+}

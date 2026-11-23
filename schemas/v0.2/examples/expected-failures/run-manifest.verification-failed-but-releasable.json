@@ -1,0 +1,9 @@
+{
+  "schema": "run-manifest.schema.json",
+  "expected_errors": [
+    {
+      "validator": "const",
+      "json_path": "$.release_scopes[1].release_status"
+    }
+  ]
+}

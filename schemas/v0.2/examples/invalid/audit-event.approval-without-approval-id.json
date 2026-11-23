@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.2",
+  "audit_event_id": "evt_009",
+  "run_id": "run_demo01",
+  "sequence": 9,
+  "occurred_at": "2026-11-23T12:09:00Z",
+  "actor": {
+    "type": "human",
+    "id": "analyst_01"
+  },
+  "event_type": "approval_recorded",
+  "state_machine": "action",
+  "previous_state": "proposed",
+  "new_state": "deferred",
+  "engine": null,
+  "input_artifacts": [],
+  "output_artifacts": [],
+  "action_id": "act_trim01",
+  "finding_id": "fnd_ws01",
+  "rationale": "Need confirmation of column scope."
+}

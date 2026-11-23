@@ -1,0 +1,23 @@
+{
+  "schema_version": "0.2",
+  "finding_id": "fnd_dup01",
+  "run_id": "run_demo01",
+  "code": "duplicate_rows",
+  "severity": "warning",
+  "status": "needs_context",
+  "message": "2 rows participate in exact duplicate groups.",
+  "evidence": {
+    "duplicate_row_count": 2
+  },
+  "statistical_implication": "Deleting legitimate repeated observations can change sample size, variance estimates, and the analysis population.",
+  "produced_by": {
+    "name": "python",
+    "capability": "profile"
+  },
+  "engine_result_id": "res_py01",
+  "release_blocking": true,
+  "affected_release_scope": [
+    "scp_main"
+  ],
+  "materiality_rationale": null
+}

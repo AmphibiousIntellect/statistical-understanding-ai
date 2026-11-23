@@ -1,0 +1,9 @@
+{
+  "schema": "finding.schema.json",
+  "expected_errors": [
+    {
+      "validator": "pattern",
+      "json_path": "$.finding_id"
+    }
+  ]
+}

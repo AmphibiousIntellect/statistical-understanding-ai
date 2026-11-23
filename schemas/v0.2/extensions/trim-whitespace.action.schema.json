@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/extensions/trim-whitespace.action.schema.json",
+  "title": "SUAI v0.2 action extension: trim_whitespace (DRAFT, slice-specific)",
+  "description": "Constrains the base action for the trim_whitespace slice. Whitespace detection alone never authorizes trimming: the column is declared, the rule is explicit, affected cells are identified, and a matching action_id must be approved.",
+  "allOf": [{"$ref": "../action.schema.json"}],
+  "properties": {
+    "action_type": {"const": "trim_whitespace"},
+    "mutation_class": {"const": "data_mutation"},
+    "value_capture_policy": {"enum": ["record_references", "hashes", "redacted_preview", "full_values"]},
+    "parameters": {
+      "type": "object",
+      "required": ["column", "column_declaration", "rule"],
+      "properties": {
+        "column": {"type": "string", "minLength": 1},
+        "column_declaration": {
+          "type": "object",
+          "required": ["declared_by", "basis"],
+          "properties": {
+            "declared_by": {"type": "string", "minLength": 1},
+            "basis": {"type": "string", "minLength": 1}
+          },
+          "additionalProperties": false
+        },
+        "rule": {
+          "type": "object",
+          "required": ["name", "sides", "characters"],
+          "properties": {
+            "name": {"const": "strip"},
+            "sides": {"enum": ["leading", "trailing", "both"]},
+            "characters": {"enum": ["ascii_whitespace", "unicode_whitespace"]}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "affected": {
+      "type": "object",
+      "required": ["affected_cell_count", "record_references"],
+      "properties": {
+        "record_references": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["row_position", "column"],
+            "properties": {"column": {"type": "string"}}
+          }
+        }
+      }
+    },
+    "postconditions": {
+      "type": "object",
+      "required": ["row_count_unchanged", "column_order_unchanged", "non_target_cells_unchanged"],
+      "properties": {
+        "row_count_unchanged": {"const": true},
+        "column_order_unchanged": {"const": true},
+        "non_target_cells_unchanged": {"const": true}
+      },
+      "additionalProperties": false
+    }
+  }
+}

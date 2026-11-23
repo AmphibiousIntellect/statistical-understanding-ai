@@ -1,0 +1,103 @@
+{
+  "schema_version": "0.2",
+  "run_id": "run_demo01",
+  "started_at": "2026-11-23T12:00:00Z",
+  "completed_at": "2026-11-23T12:00:00Z",
+  "implementation_revision": "example-rev-0001",
+  "coordination_mode": "native",
+  "engines": [
+    {
+      "name": "python",
+      "version": "3.12.13",
+      "capability": "profile",
+      "implementation_revision": "example-rev-0001",
+      "configuration": {
+        "dtype_backend": "default"
+      }
+    }
+  ],
+  "routing_policy": {
+    "id": "deterministic-capability-routing",
+    "version": "0.2-draft"
+  },
+  "inputs": [
+    {
+      "path": "examples/whitespace_padded.csv",
+      "sha256": "3f48d11458e37cd22c904295e44cb2e10fec3d19095046a0c9197efb3c5286c7",
+      "role": "input"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "outputs/whitespace_trimmed.csv",
+      "sha256": "9c6cac367012133170f12505f176cbc7e943de56df3b6ca69371e0fce21cab86",
+      "role": "output"
+    },
+    {
+      "path": "outputs/summary_table.csv",
+      "sha256": "a712350bade2884871a31eaf7e0298090d9db41163b36aa18f368e3667d9fb4d",
+      "role": "output"
+    }
+  ],
+  "engine_result_ids": [
+    "res_py01"
+  ],
+  "finding_ids": [
+    "fnd_dup01",
+    "fnd_ws01"
+  ],
+  "action_ids": [
+    "act_trim01",
+    "act_trim02"
+  ],
+  "approval_ids": [
+    "apr_001",
+    "apr_002",
+    "apr_003"
+  ],
+  "audit_log": {
+    "path": "audit-streams/valid-lifecycle.jsonl",
+    "sha256": "e16c5b26b44de72d4dd0bf0c7f775c1a2f1266894e8622423017d52eb2319176",
+    "event_count": 17,
+    "last_sequence": 17
+  },
+  "verification_status": "passed",
+  "release_scopes": [
+    {
+      "release_scope_id": "scp_main",
+      "description": "Analysis table built from the trimmed input.",
+      "outputs": [
+        {
+          "path": "outputs/whitespace_trimmed.csv",
+          "sha256": "9c6cac367012133170f12505f176cbc7e943de56df3b6ca69371e0fce21cab86",
+          "role": "output"
+        }
+      ],
+      "release_status": "releasable",
+      "release_blockers": [
+        {
+          "blocker_code": "finding_needs_context",
+          "run_wide": false,
+          "release_scope_ids": [
+            "scp_main"
+          ],
+          "finding_id": "fnd_dup01",
+          "detail": "Duplicate-looking rows await observational-unit context."
+        }
+      ]
+    },
+    {
+      "release_scope_id": "scp_other",
+      "description": "Summary table unaffected by open findings.",
+      "outputs": [
+        {
+          "path": "outputs/summary_table.csv",
+          "sha256": "a712350bade2884871a31eaf7e0298090d9db41163b36aa18f368e3667d9fb4d",
+          "role": "output"
+        }
+      ],
+      "release_status": "releasable",
+      "release_blockers": []
+    }
+  ]
+}

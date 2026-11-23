@@ -1,0 +1,90 @@
+{
+  "schema_version": "0.2",
+  "engine_result_id": "res_py01",
+  "run_id": "run_demo01",
+  "coordination_mode": "native",
+  "engines": [
+    {
+      "name": "python",
+      "version": "3.12.13",
+      "capability": "profile",
+      "implementation_revision": "example-rev-0001",
+      "configuration": {
+        "dtype_backend": "default"
+      }
+    }
+  ],
+  "produced_by": {
+    "name": "python",
+    "capability": "profile"
+  },
+  "status": "completed",
+  "started_at": "2026-11-23T12:00:00Z",
+  "completed_at": "2026-11-23T12:00:00Z",
+  "inputs": [
+    {
+      "path": "examples/whitespace_padded.csv",
+      "sha256": "3f48d11458e37cd22c904295e44cb2e10fec3d19095046a0c9197efb3c5286c7",
+      "role": "input"
+    }
+  ],
+  "profile": {
+    "row_count": 4,
+    "column_count": 3
+  },
+  "findings": [
+    {
+      "schema_version": "0.2",
+      "finding_id": "fnd_dup01",
+      "run_id": "run_demo01",
+      "code": "duplicate_rows",
+      "severity": "warning",
+      "status": "needs_context",
+      "message": "2 rows participate in exact duplicate groups.",
+      "evidence": {
+        "duplicate_row_count": 2
+      },
+      "statistical_implication": "Deleting legitimate repeated observations can change sample size, variance estimates, and the analysis population.",
+      "context_required": [
+        "Observational unit",
+        "Candidate key",
+        "Repeat structure"
+      ],
+      "produced_by": {
+        "name": "python",
+        "capability": "profile"
+      },
+      "engine_result_id": "res_py01",
+      "release_blocking": true,
+      "affected_release_scope": [
+        "scp_main"
+      ],
+      "materiality_rationale": null
+    },
+    {
+      "schema_version": "0.2",
+      "finding_id": "fnd_ws01",
+      "run_id": "run_demo01",
+      "code": "whitespace_padding",
+      "severity": "warning",
+      "status": "observed",
+      "message": "2 cells in column 'visit' have leading or trailing whitespace.",
+      "evidence": {
+        "column": "visit",
+        "padded_cell_count": 2
+      },
+      "statistical_implication": "Padded labels can split one category into several groups.",
+      "produced_by": {
+        "name": "python",
+        "capability": "profile"
+      },
+      "engine_result_id": "res_py01",
+      "release_blocking": true,
+      "affected_release_scope": [
+        "scp_main"
+      ],
+      "materiality_rationale": null
+    }
+  ],
+  "errors": []
+}

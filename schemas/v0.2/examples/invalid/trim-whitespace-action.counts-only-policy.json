@@ -1,0 +1,69 @@
+{
+  "schema_version": "0.2",
+  "action_id": "act_trim01",
+  "run_id": "run_demo01",
+  "finding_id": "fnd_ws01",
+  "action_type": "trim_whitespace",
+  "mutation_class": "data_mutation",
+  "title": "Trim both whitespace in 'visit'",
+  "description": "Strip whitespace from the declared column only; no other cell changes.",
+  "approval_required": true,
+  "statistical_implication": "Merges padded labels into their trimmed category.",
+  "target_inputs": [
+    {
+      "path": "examples/whitespace_padded.csv",
+      "sha256": "3f48d11458e37cd22c904295e44cb2e10fec3d19095046a0c9197efb3c5286c7",
+      "role": "input"
+    }
+  ],
+  "parameters": {
+    "column": "visit",
+    "column_declaration": {
+      "declared_by": "analyst_01",
+      "basis": "Named in the analysis plan as a categorical label."
+    },
+    "rule": {
+      "name": "strip",
+      "sides": "both",
+      "characters": "unicode_whitespace"
+    }
+  },
+  "affected": {
+    "affected_record_count": 2,
+    "affected_cell_count": 2,
+    "record_references": [
+      {
+        "row_position": 1,
+        "column": "visit"
+      },
+      {
+        "row_position": 3,
+        "column": "visit"
+      }
+    ]
+  },
+  "value_capture_policy": "counts_only",
+  "value_capture_rationale": null,
+  "reversibility": {
+    "reversible": true,
+    "method": "retain_input"
+  },
+  "postconditions": {
+    "row_count_unchanged": true,
+    "column_order_unchanged": true,
+    "non_target_cells_unchanged": true
+  },
+  "release_blocking": true,
+  "affected_release_scope": [
+    "scp_main"
+  ],
+  "materiality_rationale": null,
+  "alternative_group_id": "grp_ws_visit",
+  "supersedes_action_id": null,
+  "proposed_by": {
+    "name": "python",
+    "capability": "propose_transform"
+  },
+  "proposed_at": "2026-11-23T12:00:00Z",
+  "status": "proposed"
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "extensions/trim-whitespace.action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "const",
+      "json_path": "$.postconditions.non_target_cells_unchanged"
+    }
+  ]
+}

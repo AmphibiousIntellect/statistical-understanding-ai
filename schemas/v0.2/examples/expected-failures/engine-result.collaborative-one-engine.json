@@ -1,0 +1,9 @@
+{
+  "schema": "engine-result.schema.json",
+  "expected_errors": [
+    {
+      "validator": "minItems",
+      "json_path": "$.engines"
+    }
+  ]
+}

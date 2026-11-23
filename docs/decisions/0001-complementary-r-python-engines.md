@@ -2,6 +2,7 @@
 
 - **Status:** Accepted
 - **Date:** 2026-09-05
+- **Related:** [ADR 0002](0002-routing-provenance-and-state-model.md) refines this decision
 
 ## Context
 

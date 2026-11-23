@@ -1,0 +1,9 @@
+{
+  "schema": "run-manifest.schema.json",
+  "expected_errors": [
+    {
+      "validator": "maxItems",
+      "json_path": "$.release_scopes[0].release_blockers"
+    }
+  ]
+}

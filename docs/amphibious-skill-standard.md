@@ -71,6 +71,12 @@ A skill must distinguish at least these states:
 These states prevent a finding, suggestion, and completed transformation from
 being represented as the same event.
 
+In the Statistical Data Manager these states attach to two entities rather than
+one: a **finding** is `observed` or `needs_context`, and a proposed **action** is
+decided (`approved`, `rejected`, or deferred) and then `applied` and verified.
+See [ADR 0002](decisions/0002-routing-provenance-and-state-model.md) for the
+draft state model and its transitions.
+
 ## Verification levels
 
 Use the strongest applicable verification level:

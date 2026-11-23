@@ -1,0 +1,20 @@
+{
+  "schema": "approval.schema.json",
+  "expected_errors": [
+    {
+      "validator": "required",
+      "json_path": "$",
+      "message_contains": "'action_id' is a required property"
+    },
+    {
+      "validator": "required",
+      "json_path": "$",
+      "message_contains": "'action_digest' is a required property"
+    },
+    {
+      "validator": "additionalProperties",
+      "json_path": "$",
+      "message_contains": "finding_id"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "engine-result.schema.json",
+  "expected_errors": [
+    {
+      "validator": "maxItems",
+      "json_path": "$.engines"
+    }
+  ]
+}
