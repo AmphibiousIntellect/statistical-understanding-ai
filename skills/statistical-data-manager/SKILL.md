@@ -20,15 +20,16 @@ the shared protocol in `spec/protocol.md`, and the behavioral expectations in
 ## Execute
 
 5. Propose consequential transformations with their statistical implications.
-6. Apply only approved transformations.
+6. Obtain an explicit approval, rejection, or deferral for each proposed action.
+7. Apply only approved transformations.
 
 ## Verify
 
-7. Verify postconditions and document an audit event for every change.
+8. Verify postconditions and document an audit event for every change.
 
 ## Explain
 
-8. Return the analysis-ready data, data-quality report, and audit log when a
+9. Return the analysis-ready data, data-quality report, and audit log when a
    transformation workflow is completed.
 
 ## Know when not to proceed

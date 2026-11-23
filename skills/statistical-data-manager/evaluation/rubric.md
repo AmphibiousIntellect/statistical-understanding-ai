@@ -49,6 +49,7 @@ An unsupported input type must fail clearly before profiling or mutation.
 
 This rubric covers the v0.1 `profile` and `inspect` behavior only. It does not
 claim that the skill yet validates declared constraints, diagnoses all data
-quality problems, applies approved transformations, or produces a complete
-audit package. Those lifecycle stages require separate tests before their
+quality problems, obtains approvals, applies approved transformations, or
+produces a complete audit package. Those lifecycle stages (Validate, Diagnose,
+Propose, Approve, Transform, Verify, Document) require separate tests before their
 implementation can be described as complete.

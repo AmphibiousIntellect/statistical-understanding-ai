@@ -2,6 +2,10 @@
 
 The [R package strategy](r-package-strategy.md) maps package capabilities and
 selection criteria while keeping the shared reasoning protocol package-agnostic.
+[ADR 0002](../decisions/0002-routing-provenance-and-state-model.md) (proposed)
+makes engine routing, provenance, the state model, and release blockers precise.
+The lifecycle is **Inspect → Profile → Validate → Diagnose → Propose → Approve →
+Transform → Verify → Document**.
 
 The Statistical Data Manager is one coordinated statistical reasoning system
 with two complementary execution engines.

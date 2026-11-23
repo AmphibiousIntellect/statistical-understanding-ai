@@ -7,9 +7,10 @@
 3. **Validate** — evaluate declared constraints without inventing undeclared rules.
 4. **Diagnose** — distinguish confirmed defects from anomalies that need context.
 5. **Propose** — state evidence, statistical implication, proposed action, and reversibility.
-6. **Transform** — apply approved actions only; preserve original values or an equivalent lineage path.
-7. **Verify** — rerun relevant checks and confirm row, key, type, and value postconditions.
-8. **Document** — emit a machine-readable audit log and a human-readable quality report.
+6. **Approve** — a person approves, rejects, or defers each proposed action; a finding alone is not an approval target.
+7. **Transform** — apply approved actions only; preserve original values or an equivalent lineage path.
+8. **Verify** — rerun relevant checks and confirm row, key, type, and value postconditions.
+9. **Document** — emit a machine-readable audit log and a human-readable quality report.
 
 ## Engine coordination
 
@@ -41,6 +42,15 @@ capabilities do not require equivalent implementations or outputs.
 - Duplicate-looking rows may be legitimate repeated observations.
 - Missingness can be structural or informative and should not be erased by default.
 - Every applied transformation links to its evidence, rationale, approval, and verification.
+
+## Draft v0.2 contracts
+
+[ADR 0002](../../../docs/decisions/0002-routing-provenance-and-state-model.md)
+(proposed) defines deterministic routing, no silent engine fallback, provenance,
+the finding and action state models, and scoped release blockers. Its schemas are
+drafts in [`schemas/v0.2/`](../../../schemas/v0.2/README.md) and are not yet
+emitted by either engine. The implemented contract remains the v0.1 schemas in
+`schemas/` and the starter contract below.
 
 ## Starter contract
 

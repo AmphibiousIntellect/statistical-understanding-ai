@@ -34,7 +34,7 @@ the [skill template](docs/templates/SKILL.template.md).
 
 The first reference skill applies statistical reasoning before changing data:
 
-**Inspect → Profile → Validate → Diagnose → Propose → Transform → Verify → Document**
+**Inspect → Profile → Validate → Diagnose → Propose → Approve → Transform → Verify → Document**
 
 The system has one shared statistical reasoning and audit layer with
 complementary [Python](skills/statistical-data-manager/python/README.md) and
@@ -56,6 +56,11 @@ coupling statistical judgment to any one library.
 [Architecture Decision 0001](docs/decisions/0001-complementary-r-python-engines.md)
 records the decision to use complementary R and Python engines with
 collaborative, native, and independent-validation modes.
+[Architecture Decision 0002](docs/decisions/0002-routing-provenance-and-state-model.md)
+(proposed) makes routing, provenance, the state model, and release blockers
+precise. Its contracts are published as **drafts** in
+[`schemas/v0.2/`](schemas/v0.2/README.md); the implemented v0.1 schemas in
+[`schemas/`](schemas) are unchanged.
 
 The [external reference use policy](docs/reference-use-policy.md) requires
 independent specifications, original examples, synthetic fixtures, and licensed
@@ -80,7 +85,7 @@ Python:
 
 ```bash
 cd skills/statistical-data-manager/python
-python -m pip install -e .
+python -m pip install -e ".[test]"
 python -m unittest discover -s tests
 ```
 
