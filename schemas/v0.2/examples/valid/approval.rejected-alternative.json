@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.2",
+  "approval_id": "apr_003",
+  "run_id": "run_demo01",
+  "action_id": "act_trim02",
+  "action_digest": "67efa15b3132e0769116498abbaec49292543be80f5e5babcac547a0b3140b11",
+  "decision": "rejected",
+  "supersedes_approval_id": null,
+  "decided_by": "analyst_01",
+  "decided_at": "2026-11-23T12:00:00Z",
+  "rationale": "Alternative not selected; both-sides trim chosen."
+}

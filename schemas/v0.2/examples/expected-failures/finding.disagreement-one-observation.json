@@ -1,0 +1,9 @@
+{
+  "schema": "finding.schema.json",
+  "expected_errors": [
+    {
+      "validator": "minItems",
+      "json_path": "$.evidence.observations"
+    }
+  ]
+}

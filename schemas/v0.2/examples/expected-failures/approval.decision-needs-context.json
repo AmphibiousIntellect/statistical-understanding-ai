@@ -1,0 +1,9 @@
+{
+  "schema": "approval.schema.json",
+  "expected_errors": [
+    {
+      "validator": "enum",
+      "json_path": "$.decision"
+    }
+  ]
+}

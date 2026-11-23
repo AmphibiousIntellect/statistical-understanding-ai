@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/engine-result.schema.json",
+  "title": "SUAI v0.2 engine result (DRAFT)",
+  "description": "The output of one engine for one capability, with the participating engine records and the coordination mode. `produced_by` must name one of `engines` (checked by contract tests, not by this schema). A failed or unavailable engine is reported here; it is never silently replaced.",
+  "type": "object",
+  "required": [
+    "schema_version", "engine_result_id", "run_id", "coordination_mode", "engines", "produced_by",
+    "status", "started_at", "completed_at", "inputs", "profile", "findings", "errors"
+  ],
+  "properties": {
+    "schema_version": {"$ref": "common.schema.json#/$defs/schema_version"},
+    "engine_result_id": {"$ref": "common.schema.json#/$defs/engine_result_id"},
+    "run_id": {"$ref": "common.schema.json#/$defs/run_id"},
+    "coordination_mode": {"$ref": "common.schema.json#/$defs/coordination_mode"},
+    "engines": {"$ref": "common.schema.json#/$defs/engines"},
+    "produced_by": {"$ref": "common.schema.json#/$defs/engine_ref"},
+    "status": {"enum": ["completed", "failed", "unavailable"]},
+    "started_at": {"$ref": "common.schema.json#/$defs/timestamp"},
+    "completed_at": {"$ref": "common.schema.json#/$defs/nullable_timestamp"},
+    "inputs": {"type": "array", "minItems": 1, "items": {"$ref": "common.schema.json#/$defs/artifact_ref"}},
+    "profile": {"type": ["object", "null"]},
+    "findings": {"type": "array", "items": {"$ref": "finding.schema.json"}},
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["code", "message"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1},
+          "message": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {"$ref": "common.schema.json#/$defs/engine_participation_rules"},
+    {
+      "if": {"properties": {"status": {"enum": ["failed", "unavailable"]}}, "required": ["status"]},
+      "then": {"properties": {"errors": {"minItems": 1}}}
+    }
+  ],
+  "additionalProperties": false
+}

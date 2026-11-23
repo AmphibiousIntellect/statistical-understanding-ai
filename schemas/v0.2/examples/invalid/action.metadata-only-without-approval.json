@@ -1,0 +1,45 @@
+{
+  "schema_version": "0.2",
+  "action_id": "act_meta01",
+  "run_id": "run_demo01",
+  "finding_id": "fnd_ws01",
+  "action_type": "annotate_column",
+  "mutation_class": "metadata_only",
+  "title": "Annotate column 'visit'",
+  "description": "Attach a documentation note to the column metadata; no cell values change.",
+  "approval_required": false,
+  "statistical_implication": null,
+  "target_inputs": [
+    {
+      "path": "examples/whitespace_padded.csv",
+      "sha256": "3f48d11458e37cd22c904295e44cb2e10fec3d19095046a0c9197efb3c5286c7",
+      "role": "input"
+    }
+  ],
+  "parameters": {
+    "note": "Labels contained padding in the source."
+  },
+  "affected": {
+    "affected_record_count": 0
+  },
+  "value_capture_policy": "counts_only",
+  "value_capture_rationale": null,
+  "reversibility": {
+    "reversible": true,
+    "method": "retain_input"
+  },
+  "postconditions": {
+    "input_bytes_unchanged": true
+  },
+  "release_blocking": false,
+  "affected_release_scope": [],
+  "materiality_rationale": "Documentation only; it does not change any released value.",
+  "alternative_group_id": null,
+  "supersedes_action_id": null,
+  "proposed_by": {
+    "name": "python",
+    "capability": "propose_metadata"
+  },
+  "proposed_at": "2026-11-23T12:00:00Z",
+  "status": "proposed"
+}

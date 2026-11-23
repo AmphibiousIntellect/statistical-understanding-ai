@@ -1,0 +1,35 @@
+{
+  "schema_version": "0.2",
+  "action_id": "act_review01",
+  "run_id": "run_demo01",
+  "finding_id": "fnd_dup01",
+  "action_type": "request_review",
+  "mutation_class": "none",
+  "title": "Review duplicate-looking rows",
+  "description": "Ask a person to state the observational unit and key. Changes nothing.",
+  "approval_required": false,
+  "statistical_implication": null,
+  "target_inputs": [],
+  "parameters": {},
+  "affected": {},
+  "value_capture_policy": "none",
+  "value_capture_rationale": null,
+  "reversibility": {
+    "reversible": true,
+    "method": "none"
+  },
+  "postconditions": {},
+  "release_blocking": true,
+  "affected_release_scope": [
+    "scp_main"
+  ],
+  "materiality_rationale": null,
+  "alternative_group_id": null,
+  "supersedes_action_id": null,
+  "proposed_by": {
+    "name": "python",
+    "capability": "propose_review"
+  },
+  "proposed_at": "2026-11-23T12:00:00Z",
+  "status": "proposed"
+}

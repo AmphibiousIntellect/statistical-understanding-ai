@@ -1,0 +1,12 @@
+{
+  "schema_version": "0.2",
+  "approval_id": "apr_002",
+  "run_id": "run_demo01",
+  "action_id": "act_trim01",
+  "action_digest": "72a5d44ac080cf6425546886a27b36fe2382d9d7770c88430dcb502dbe70ff4c",
+  "decision": "needs_context",
+  "supersedes_approval_id": "apr_001",
+  "decided_by": "analyst_01",
+  "decided_at": "2026-11-23T12:00:00Z",
+  "rationale": "Scope confirmed in the attached note."
+}

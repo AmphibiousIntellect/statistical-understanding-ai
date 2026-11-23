@@ -1,0 +1,9 @@
+{
+  "schema": "approval.schema.json",
+  "expected_errors": [
+    {
+      "validator": "pattern",
+      "json_path": "$.action_digest"
+    }
+  ]
+}

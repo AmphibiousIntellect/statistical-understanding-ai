@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amphibiousintellect.org/suai/v0.2/common.schema.json",
+  "title": "SUAI v0.2 shared definitions (DRAFT)",
+  "description": "Shared definitions for the draft v0.2 contracts. Draft: see schemas/v0.2/README.md. The $id base is a placeholder pending the decision recorded in docs/decisions/open-decisions.md.",
+  "$defs": {
+    "schema_version": {"const": "0.2"},
+    "run_id": {"type": "string", "pattern": "^run_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "finding_id": {"type": "string", "pattern": "^fnd_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "action_id": {"type": "string", "pattern": "^act_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "approval_id": {"type": "string", "pattern": "^apr_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "audit_event_id": {"type": "string", "pattern": "^evt_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "engine_result_id": {"type": "string", "pattern": "^res_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "release_scope_id": {"type": "string", "pattern": "^scp_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "nullable_action_id": {"type": ["string", "null"], "pattern": "^act_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "nullable_approval_id": {"type": ["string", "null"], "pattern": "^apr_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "nullable_finding_id": {"type": ["string", "null"], "pattern": "^fnd_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "alternative_group_id": {"type": ["string", "null"], "pattern": "^grp_[A-Za-z0-9][A-Za-z0-9._-]{0,63}$"},
+    "release_scope_ids": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/release_scope_id"},
+      "uniqueItems": true
+    },
+    "timestamp": {"type": "string", "format": "date-time"},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "artifact_ref": {
+      "type": "object",
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "engine_ref": {
+      "type": "object",
+      "required": ["name", "capability"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "capability": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "nullable_timestamp": {"type": ["string", "null"], "format": "date-time"},
+    "nullable_engine_ref": {
+      "type": ["object", "null"],
+      "required": ["name", "capability"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "capability": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "engine_record": {
+      "type": "object",
+      "required": ["name", "version", "capability", "implementation_revision", "configuration"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "capability": {"type": "string", "minLength": 1},
+        "implementation_revision": {"type": "string", "minLength": 1},
+        "configuration": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "coordination_mode": {"enum": ["native", "collaborative", "independent_validation"]},
+    "engines": {"type": "array", "items": {"$ref": "#/$defs/engine_record"}},
+    "finding_state": {"enum": ["observed", "needs_context", "proposed", "resolved", "remediated"]},
+    "action_state": {
+      "enum": ["proposed", "approved", "rejected", "deferred", "applied", "verified", "verification_failed", "superseded"]
+    },
+    "approval_decision": {"enum": ["approved", "rejected", "deferred"]},
+    "mutation_class": {"enum": ["none", "metadata_only", "data_mutation"]},
+    "value_capture_policy": {
+      "enum": ["none", "counts_only", "record_references", "hashes", "redacted_preview", "full_values"]
+    },
+    "resolution_basis": {"enum": ["context_shows_legitimate", "disagreement_reconciled", "accepted_unchanged"]},
+    "verification_status": {"enum": ["not_run", "passed", "failed"]},
+    "record_reference": {
+      "type": "object",
+      "required": ["row_position", "column"],
+      "properties": {
+        "row_position": {"type": "integer", "minimum": 0},
+        "column": {"type": ["string", "null"]}
+      },
+      "additionalProperties": false
+    },
+    "actor": {
+      "type": "object",
+      "required": ["type", "id"],
+      "properties": {
+        "type": {"enum": ["human", "engine", "coordinator", "system"]},
+        "id": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "engine_participation_rules": {
+      "description": "Mode-specific engine counts; referenced with allOf by engine-result and run-manifest.",
+      "allOf": [
+        {
+          "if": {"properties": {"coordination_mode": {"const": "native"}}, "required": ["coordination_mode"]},
+          "then": {"properties": {"engines": {"minItems": 1, "maxItems": 1}}}
+        },
+        {
+          "if": {
+            "properties": {"coordination_mode": {"enum": ["collaborative", "independent_validation"]}},
+            "required": ["coordination_mode"]
+          },
+          "then": {"properties": {"engines": {"minItems": 2}}}
+        }
+      ]
+    }
+  }
+}

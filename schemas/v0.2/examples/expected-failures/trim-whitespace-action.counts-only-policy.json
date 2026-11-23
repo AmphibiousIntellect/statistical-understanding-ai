@@ -1,0 +1,9 @@
+{
+  "schema": "extensions/trim-whitespace.action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "enum",
+      "json_path": "$.value_capture_policy"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "type",
+      "json_path": "$.value_capture_rationale"
+    }
+  ]
+}

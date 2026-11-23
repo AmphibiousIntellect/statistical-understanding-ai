@@ -1,0 +1,21 @@
+{
+  "schema_version": "0.2",
+  "finding_id": "fnd_info01",
+  "run_id": "run_demo01",
+  "code": "row_count",
+  "severity": "info",
+  "status": "observed",
+  "message": "The input has 4 rows.",
+  "evidence": {
+    "row_count": 4
+  },
+  "statistical_implication": null,
+  "produced_by": {
+    "name": "python",
+    "capability": "profile"
+  },
+  "engine_result_id": "res_py01",
+  "release_blocking": false,
+  "affected_release_scope": [],
+  "materiality_rationale": "Informational structural fact; it does not bear on any release decision."
+}

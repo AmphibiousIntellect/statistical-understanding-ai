@@ -1,0 +1,10 @@
+{
+  "schema": "approval.schema.json",
+  "expected_errors": [
+    {
+      "validator": "required",
+      "json_path": "$",
+      "message_contains": "'context_required' is a required property"
+    }
+  ]
+}

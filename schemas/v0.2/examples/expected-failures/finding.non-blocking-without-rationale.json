@@ -1,0 +1,9 @@
+{
+  "schema": "finding.schema.json",
+  "expected_errors": [
+    {
+      "validator": "type",
+      "json_path": "$.materiality_rationale"
+    }
+  ]
+}

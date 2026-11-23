@@ -1,0 +1,10 @@
+{
+  "schema": "extensions/trim-whitespace.action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "required",
+      "json_path": "$.parameters",
+      "message_contains": "'column_declaration' is a required property"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schema": "approval.schema.json",
+  "expected_errors": [
+    {
+      "validator": "format",
+      "json_path": "$.decided_at"
+    }
+  ]
+}

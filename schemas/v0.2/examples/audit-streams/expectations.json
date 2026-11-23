@@ -1,0 +1,56 @@
+{
+  "valid-lifecycle.jsonl": {
+    "errors": [],
+    "warnings": []
+  },
+  "duplicate-exact.jsonl": {
+    "errors": [],
+    "warnings": [
+      "duplicate_event_ignored"
+    ]
+  },
+  "conflicting-duplicate.jsonl": {
+    "errors": [
+      "conflicting_duplicate"
+    ],
+    "warnings": []
+  },
+  "sequence-collision.jsonl": {
+    "errors": [
+      "sequence_collision"
+    ],
+    "warnings": []
+  },
+  "sequence-gap.jsonl": {
+    "errors": [
+      "sequence_gap"
+    ],
+    "warnings": []
+  },
+  "state-mismatch.jsonl": {
+    "errors": [
+      "state_mismatch"
+    ],
+    "warnings": []
+  },
+  "open-sibling.jsonl": {
+    "errors": [
+      "open_sibling_action"
+    ],
+    "warnings": []
+  },
+  "sibling-already-selected.jsonl": {
+    "errors": [
+      "open_sibling_action",
+      "sibling_already_selected"
+    ],
+    "warnings": []
+  },
+  "needs-context-apply.jsonl": {
+    "errors": [
+      "apply_requires_proposed_finding",
+      "approval_requires_proposed_finding"
+    ],
+    "warnings": []
+  }
+}

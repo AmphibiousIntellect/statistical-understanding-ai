@@ -1,0 +1,10 @@
+{
+  "schema": "audit-event.schema.json",
+  "expected_errors": [
+    {
+      "validator": "required",
+      "json_path": "$",
+      "message_contains": "'approval_id' is a required property"
+    }
+  ]
+}

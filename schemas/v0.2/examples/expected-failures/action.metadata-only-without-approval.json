@@ -1,0 +1,9 @@
+{
+  "schema": "action.schema.json",
+  "expected_errors": [
+    {
+      "validator": "const",
+      "json_path": "$.approval_required"
+    }
+  ]
+}
